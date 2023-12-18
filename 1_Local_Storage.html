@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+    <script>
+        function doShowAll() {
+            var key = "";
+            var pairs = "<tr><th>Key</th><th>Value</th></tr>";
+            for (var i = 0; i < localStorage.length; i++) {
+                key = localStorage.key(i);
+                pairs += `<tr><td>${key}</td><td>${localStorage.getItem(key)}</td></tr>\n`;
+            }
+            if (pairs == "<tr><th>Key</th><th>Value</th></tr>") {
+                pairs += "<tr><td><i>empty<i></td><td><i>empty<i></td></tr>"
+            }
+
+            document.getElementById("pairs").innerHTML = pairs;
+        }
+
+        function doSetItem() {
+            var name = document.forms.editor.name.value;
+            var data = document.forms.editor.data.value;
+
+            localStorage.setItem(name, data);
+            document.getElementById("key").value = " ";
+            document.getElementById("data").value = " ";
+
+            doShowAll();
+            // alert("Local Storage'daki değer => " + localStorage.getItem(name));
+        }
+        function doClear() {
+            localStorage.clear();
+            doShowAll();
+        }
+    </script>
+</head>
+
+<body onload="doShowAll()">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="card">
+                <div class="car-header">
+                    <h3 class="card-title">HTML-5 Local Storage</h3>
+                </div>
+                <form action="" name="editor">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>Send Data</h2>
+                                <div>
+                                    <label for="">
+                                        Name:
+                                        <input type="text" class="form-control" name="name" id="key" />
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="">
+                                        Data:
+                                        <input type="text" class="form-control" name="data" id="data" />
+                                        <input type="button" class="btn float-end mt-2 btn-outline-info"
+                                            onclick="doSetItem()" value="Send">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h2>Items</h2>
+                                <table id="pairs" class="table table-hover"></table>
+
+                                <label for="">
+                                    <input type="button" class="btn btn-outline-danger" onclick="doClear()"
+                                        value="Delete All">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+</body>
+
+</html>
